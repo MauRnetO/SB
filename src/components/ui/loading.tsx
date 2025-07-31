@@ -17,7 +17,7 @@ export function Loading({ size = 'md', className, text }: LoadingProps) {
   return (
     <div className={cn('flex items-center justify-center', className)}>
       <Loader2 className={cn('animate-spin', sizeClasses[size])} />
-      {text && <span className="ml-2 text-sm text-gray-600">{text}</span>}
+      {text && <span className="ml-2 text-sm text-muted-foreground">{text}</span>}
     </div>
   )
 }
@@ -52,13 +52,13 @@ export function LoadingButton() {
 // Skeleton components
 export function Skeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('animate-pulse rounded-md bg-gray-200', className)} />
+    <div className={cn('animate-pulse rounded-md bg-muted', className)} />
   )
 }
 
 export function SkeletonCard() {
   return (
-    <div className="rounded-lg border bg-white p-6">
+    <div className="rounded-lg border bg-card p-6">
       <div className="space-y-3">
         <Skeleton className="h-4 w-3/4" />
         <Skeleton className="h-4 w-1/2" />
