@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { getAppointments } from '@/lib/appointments'
+import { getAppointments, Appointment } from '@/lib/appointments'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -13,16 +13,23 @@ interface AppointmentsListProps {
   userId: string
 }
 
+interface Service {
+  id: string
+  nome: string
+  valor: number
+  duracao_minutos: number
+}
+
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'pendente':
-      return 'bg-yellow-100 text-yellow-800'
+    case 'agendado':
+      return 'bg-blue-100 text-blue-800'
     case 'confirmado':
       return 'bg-green-100 text-green-800'
-    case 'concluido':
-      return 'bg-blue-100 text-blue-800'
     case 'cancelado':
       return 'bg-red-100 text-red-800'
+    case 'concluido':
+      return 'bg-gray-100 text-gray-800'
     default:
       return 'bg-gray-100 text-gray-800'
   }
@@ -30,16 +37,16 @@ const getStatusColor = (status: string) => {
 
 const getStatusText = (status: string) => {
   switch (status) {
-    case 'pendente':
-      return 'Pendente'
+    case 'agendado':
+      return 'Agendado'
     case 'confirmado':
       return 'Confirmado'
-    case 'concluido':
-      return 'Concluído'
     case 'cancelado':
       return 'Cancelado'
+    case 'concluido':
+      return 'Concluído'
     default:
-      return status
+      return 'Pendente'
   }
 }
 
@@ -88,7 +95,7 @@ export default function AppointmentsList({ userId }: AppointmentsListProps) {
       {appointments.map((appointment) => {
         const appointmentDate = new Date(appointment.data_hora)
         const totalValue = Array.isArray(appointment.services) 
-          ? appointment.services.reduce((sum: number, service: any) => sum + (service.valor || 0), 0)
+          ? appointment.services.reduce((sum: number, service: Service) => sum + (service.valor || 0), 0)
           : 0
 
         return (
@@ -127,7 +134,7 @@ export default function AppointmentsList({ userId }: AppointmentsListProps) {
 
                     {Array.isArray(appointment.services) && appointment.services.length > 0 && (
                       <div className="flex flex-wrap gap-1">
-                        {appointment.services.map((service: any, index: number) => (
+                        {appointment.services.map((service: Service, index: number) => (
                           <Badge key={index} variant="secondary" className="text-xs">
                             {service.nome}
                           </Badge>

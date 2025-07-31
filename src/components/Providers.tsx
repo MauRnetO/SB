@@ -9,8 +9,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       queries: {
         staleTime: 5 * 60 * 1000, // 5 minutos
         gcTime: 10 * 60 * 1000, // 10 minutos
-        retry: (failureCount, error: any) => {
-          if (error?.status >= 400 && error?.status < 500 && ![408, 429].includes(error?.status)) {
+        retry: (failureCount, error) => {
+          const errorWithStatus = error as { status?: number }
+          if (errorWithStatus?.status && errorWithStatus.status >= 400 && errorWithStatus.status < 500 && ![408, 429].includes(errorWithStatus.status)) {
             return false
           }
           return failureCount < 3
@@ -19,8 +20,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         refetchOnReconnect: true,
       },
       mutations: {
-        retry: (failureCount, error: any) => {
-          if (error?.status >= 400 && error?.status < 500 && ![408, 429].includes(error?.status)) {
+        retry: (failureCount, error) => {
+          const errorWithStatus = error as { status?: number }
+          if (errorWithStatus?.status && errorWithStatus.status >= 400 && errorWithStatus.status < 500 && ![408, 429].includes(errorWithStatus.status)) {
             return false
           }
           return failureCount < 2
