@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function HomePage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -13,44 +15,44 @@ export default function HomePage() {
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Proprietário</h3>
             <p className="text-gray-600 mb-4">Gerencie seu negócio</p>
-            <a
+            <Link
               href="/auth/login"
               className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors w-full"
             >
               Login
-            </a>
+            </Link>
           </div>
           
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Funcionário</h3>
             <p className="text-gray-600 mb-4">Acesse como equipe</p>
-            <a
+            <Link
               href="/auth/employee/login"
               className="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors w-full"
             >
               Login
-            </a>
+            </Link>
           </div>
           
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Cliente</h3>
             <p className="text-gray-600 mb-4">Agende seus serviços</p>
-            <a
+            <Link
               href="/auth/client/login"
               className="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors w-full"
             >
               Login
-            </a>
+            </Link>
           </div>
         </div>
         
         <div className="space-y-2">
-          <a
+          <Link
             href="/auth/register"
             className="inline-block bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
           >
             Criar Conta de Proprietário
-          </a>
+          </Link>
         </div>
       </div>
     </div>
